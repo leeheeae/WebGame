@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>쿵쿵따</title>
+    </head>
+    <body>
+        <div>
+            <h1>쿵쿵따 게임</h1>
+            <h3>순서 : <span id="order">1</span></h3>
+            <h3>제시어 : <span id="word"></span></h3>
+            <div class="list"></div>
+            <div>
+                <input type="text" />
+                <button>입력</button>
+            </div>
+        </div>
+
+        <script>
+            //셀렉터
+            const $number = Number(prompt("몇명이서 시작하시나요?"));
+            const $order = document.querySelector("#order");
+            const $word = document.querySelector("#word");
+            const $list = document.querySelector(".list");
+            const $input = document.querySelector("input");
+            const $button = document.querySelector("button");
+            let word, newWord;
+
+            //버튼 클릭 이벤트
+            const onClickHandler = () => {
+                if (newWord !== undefined && newWord.length === 3) {
+                    if (!word || word[word.length - 1] === newWord[0]) {
+                        word = newWord;
+                        $word.textContent = word;
+                        newWord = "";
+
+                        const order = Number($order.textContent);
+                        if (order + 1 > $number) {
+                            $order.textContent = 1;
+                        } else {
+                            $order.textContent = order + 1;
+                        }
+                    } else {
+                        alert("입력한 값이 올바르지 않습니다.");
+                    }
+                } else {
+                    alert("입력한 값이 올바르지 않습니다.");
+                }
+                $input.value = "";
+                $input.focus();
+            };
+
+            //인풋입력이벤트
+            const onInputHandler = (event) => {
+                newWord = event.target.value;
+            };
+
+            $button.addEventListener("click", onClickHandler);
+            $input.addEventListener("input", onInputHandler);
+        </script>
+    </body>
+</html>
